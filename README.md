@@ -13,4 +13,5 @@ Your first task is to retrieve the instructions left for you by your mole on the
 > Some tips to guide you:
 >
 > - Once you've finished building up the `body` from each of the packets you receive, this `body` of your response will be a _stringified_ JSON object. How can you turn this into a useable object?
+
 > - You should now have an object with a key of `instructions` holding the value of a long string (with markdown formatting embedded in it). Only save this string containing your instructions to a markdown file - you don't need to save the whole response object.
