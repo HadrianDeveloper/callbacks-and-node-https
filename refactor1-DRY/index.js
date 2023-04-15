@@ -10,8 +10,8 @@ fetchFile(('people'), ({people}) => {
     saveAsFile('northcoders.json', JSON.stringify(ncoders))
 });
 
-readLocalFile(('northcoders.json'), ({northcoders}) => {
-    const usernames = northcoders.map((u) => u.username);
+readLocalFile(('northcoders.json'), (list) => {
+    const usernames = list.map((u) => u.username);
     const interests = [];
     usernames.forEach((un) => {
         fetchFile(`people/${un}/interests`, ({person}) => {
@@ -23,8 +23,8 @@ readLocalFile(('northcoders.json'), ({northcoders}) => {
     });
 });
 
-readLocalFile(('northcoders.json'), ({northcoders}) => {
-    const usernames = northcoders.map((u) => u.username);
+readLocalFile(('northcoders.json'), (list) => {
+    const usernames = list.map((u) => u.username);
     const pets = [];
     let count = 0;
     usernames.forEach((u) => {

@@ -108,7 +108,7 @@ getPeople();
 function getInstructions() {
 
     const options = {
-        hostname: 'nc-leaks.herokuapp.com',             //MUST remove http
+        hostname: 'nc-leaks.herokuapp.com', 
         path: '/api/confidential',
         method: 'GET'
     };
