@@ -1,107 +1,129 @@
 const https = require('https');
-const fs = require('fs');
+const { saveFile } = require('./utils.js');
+const { readFile } = require('fs');
 
-function getInstructions() {
 
-const options = {
-    hostname: 'nc-leaks.herokuapp.com',
-    path: '/api/confidential',
-    method: 'GET'
-};
+function getPets() {
 
-const request = https.request(options, (response) => {
-    let body = ''; 
-        
-    response.on('data', (packet) => {
-        body += packet.toString()     
-    });
+   const pets = [];
+   let count = 0;
 
-    response.on('end', () => {
-        const parsley = JSON.parse(body);
-
-        fs.writeFile('instructions.md', parsley.instructions, (err) => {
-            if (err) throw err;
-            else {
-                console.log('success, file created')
+    readFile('northcoders.json', (err, res) => {
+        let usernames = JSON.parse(res);
+            usernames = usernames.northcoders.map((u) => u.username)
+        usernames.forEach((user) => {
+            const options = {
+                hostname: 'nc-leaks.herokuapp.com',
+                path: `/api/people/${user}/pets`,
+                method: 'GET'
             };
+            https.request(options, (res) => {
+                let body = '';
+
+                res.on('data', (chunk) => {
+                    body += chunk.toString()
+                });
+
+                res.on('end', () => {
+                    const parsed = JSON.parse(body);
+                    const extract = parsed.person;
+                    if (extract) pets.push(extract)
+
+                    if (++count === usernames.length) {
+                        const forFiling = pets.filter((p) => p.pets.length)
+                        saveFile('pets.json', JSON.stringify(forFiling))
+                    }
+                });
+            }).end();
         })
-    });
-}) 
-request.end()
+    })
 };
+getPets()
+
+
+function getInterests() {
+
+    readFile('northcoders.json', (err, res) => {
+        const forFiling = [];
+        const usernames = JSON.parse(res);
+        usernames.northcoders.forEach((u) => {
+
+            const options = {
+                hostname: 'nc-leaks.herokuapp.com',
+                path: `/api/people/${u.username}/interests`,
+                method: 'GET'
+            };
+
+            https.request((options), (res) => {
+                let body = '';
+
+                res.on('data', (chunk) => {
+                    body += chunk.toString();
+                });
+
+                res.on('end', () => {
+                    const parsed = JSON.parse(body);
+                    forFiling.push(parsed.person);
+                    if (forFiling.length === usernames.northcoders.length) {
+                        saveFile('interests.json', JSON.stringify(forFiling))
+                    }
+                })
+            }).end();
+        });
+    })
+};
+getInterests()
+
+
 
 function getPeople() {
+
     const options = {
         hostname: 'nc-leaks.herokuapp.com',
         path: '/api/people',
         method: 'GET'
     };
 
-    const request = https.request(options, (response) => {
+    const peopleList = https.request(options, (res) => {
+
         let body = '';
 
-        response.on('data', (packet) => {
-            body += packet.toString();
+        res.on('data', (chunk) => {
+            body += chunk.toString()
         });
-        
-        response.on('end', () => {
-            const coriander = JSON.parse(body);
 
-            fs.writeFile('northcoders.json', JSON.stringify(coriander.people), (err) => {
-                if (err) console.log('File creation failed!');
-                else console.log('Success! File created!')
-            })
+        res.on('end', () => {
+            body = JSON.parse(body);
+            const northcoders = body.people.filter((chap) => chap.job.workplace = 'northcoders');
+            saveFile('northcoders.json', JSON.stringify({northcoders}));
         });
-    });
-request.end()
-};
-
-
-
-
-function getInterests() {
-
-    const result = [];
-
-    fs.readFile('northcoders.json', (err, usernames) => {
-        const parsedUsers = JSON.parse(usernames) // <-- array of objs
-            if (err) console.log('ERROR in retrieving usernames')
-        
-            
-        //for each user make a request:
-        parsedUsers.forEach(user => {
-            const objRequest = {
-                hostname: 'nc-leaks.herokuapp.com',
-                path: `/api/people/${user.username}/interests`, // <-- username = username [GOOD!]
-                method: 'GET'
-            };
-
-            const request = https.request(objRequest, (response) => {
-                let body = '';
-
-                response.on('data', (packet) => {
-                    body += packet.toString();
-                });
-
-                response.on('end', () => {
-                    const parsedInterest = JSON.parse(body); // <-- output achieved! 
-                    result.push(parsedInterest);
-
-                })
-            })
-            request.end();
-        }) // <--END OF FOREACH CODE BLOCK
-       
-        fs.writeFile('interests.json', JSON.stringify(interests), () => {
-            console.log(interests)
-            console.log('WELL DONE!!');
-            })
 
     })
+    .on('error', (err) => console.log('>>> ' + err))
+    .end()
 };
-
-getInterests()
-
+getPeople();
 
 
+function getInstructions() {
 
+    const options = {
+        hostname: 'nc-leaks.herokuapp.com',             //MUST remove http
+        path: '/api/confidential',
+        method: 'GET'
+    };
+
+    const request = https.request(options, (res) => {      //DOES NOT ACCEPT ERR arg
+        let body = '';
+        res.on('data', (chunk) => {
+             body += chunk.toString()
+         });
+         res.on('end', () => {
+             body = JSON.parse(body);
+             saveFile('instructions.md', body.instructions)     //Content must not be in {}
+         });                                                    //JSON.stringify if .json file
+    })
+    .on('error', (err) => console.log('>>> ' + err))    //Needed to report errs in {options}
+    .end()
+};
+getInstructions();
