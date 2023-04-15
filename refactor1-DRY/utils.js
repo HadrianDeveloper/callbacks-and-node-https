@@ -9,13 +9,16 @@ exports.fetchFile = (path, callback) => {
     };
     request(options, (res) => {
         let body = '';
+        res.on('error', (err) => {
+            console.log(err)
+        });
         res.on('data', (chunk) => {
             body += chunk.toString();
         });
         res.on('end', () => {
             let parsed = JSON.parse(body);
             callback(parsed)
-        })
+        });
     }).end();
 };
 
