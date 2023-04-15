@@ -1,15 +1,13 @@
 
 const { fetchFile, saveAsFile, readLocalFile } = require('./utils');
 
-
-
 fetchFile(('confidential'), ({instructions}) => {
-    saveAsFile(`${__dirname}/instructions.md`, instructions)
+    saveAsFile('instructions.md', instructions)
 });
 
 fetchFile(('people'), ({people}) => {
     const ncoders = people.filter((u) => u.job.workplace === 'northcoders');
-    saveAsFile(`${__dirname}/northcoders.json`, JSON.stringify(ncoders))
+    saveAsFile('northcoders.json', JSON.stringify(ncoders))
 });
 
 readLocalFile(('northcoders.json'), ({northcoders}) => {
@@ -19,7 +17,7 @@ readLocalFile(('northcoders.json'), ({northcoders}) => {
         fetchFile(`people/${un}/interests`, ({person}) => {
             interests.push(person);
             if (interests.length === usernames.length) {
-                saveAsFile(`${__dirname}/interests.json`, JSON.stringify(interests))
+                saveAsFile('interests.json', JSON.stringify(interests))
             };
         });
     });
@@ -33,8 +31,9 @@ readLocalFile(('northcoders.json'), ({northcoders}) => {
         fetchFile(`people/${u}/pets`, ({person}) => {
             if (person) pets.push(person);
             if (++count === usernames.length) {
-                saveAsFile(`${__dirname}/pets.json`, JSON.stringify(pets));
+                saveAsFile('pets.json', JSON.stringify(pets));
             };
         });
     });
 });
+

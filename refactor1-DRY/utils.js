@@ -20,7 +20,7 @@ exports.fetchFile = (path, callback) => {
 };
 
 exports.saveAsFile = (fileName, contents) => {
-    writeFile(fileName, contents, (err) => {
+    writeFile(`${__dirname}/${fileName}`, contents, (err) => {
         console.log(err ? err : `${fileName} created!`)
     })
 };
