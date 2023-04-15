@@ -1,3 +1,11 @@
+# Versions
+## Root dir files
+Index.js handles everything: readfile, https data fetch. Only writeFile is extracted out into utils.js file.
+
+## Refactor1 - DRY
+ - Cohered with DRY principle creating reusable helper functions which handle all async processing using callbacks.
+ - Separated concerns by creating flexible helper functions in utils.js
+
 # Instructions
 
 Northcoders have set up an api to serve data about past and present employees here: https://nc-leaks.herokuapp.com. A northcoders whistleblower has left you some instructions on how to obtain this data.
