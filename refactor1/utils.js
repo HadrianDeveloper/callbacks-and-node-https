@@ -1,5 +1,5 @@
 const { request } = require('node:https');
-const { writeFile } = require('fs')
+const { writeFile, readFile } = require('fs')
 
 exports.fetchFile = (path, callback) => {
     const options = {
@@ -22,5 +22,12 @@ exports.fetchFile = (path, callback) => {
 exports.saveAsFile = (fileName, contents) => {
     writeFile(fileName, contents, (err) => {
         console.log(err ? err : `${fileName} created!`)
+    })
+};
+
+exports.readLocalFile = (file, callback) => {
+    readFile(file, (err, res) => {
+        const parsed = JSON.parse(res);
+        err ? console.log(err) : callback(parsed)
     })
 };
