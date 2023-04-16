@@ -13,9 +13,5 @@ exports.getEndpoint = (url, fromChar) => {
 exports.parseFilterString = (arr, username, cb) => {
     const parsedArr = JSON.parse(arr)
     const target = parsedArr.filter((u) => u.username === username)
-    if (target.length) cb(JSON.stringify(target));
-    else {
-        this.formatResponse()
-    }
-}
+};
 
