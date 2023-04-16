@@ -1,4 +1,4 @@
-const { fetchNorthcoders, fetchIndividual, fetchSomeonesPets, fetchSomeonesInterests } = require("./models");
+const { fetchNorthcoders, fetchIndividual, fetchSomeonesPets, fetchSomeonesInterests, fetchFilteredPets } = require("./models");
 const { formatResponse, getEndpoint } = require("./utils");
 
 exports.getNorthcoders = (req, res) => {
@@ -23,6 +23,8 @@ exports.getSomeonesInterests = (req, res) => {
     })
 };
 
-exports.handle404s = (req, res) => {
-    
+exports.getFilteredPets = (req, res) => {
+    fetchFilteredPets((getEndpoint(req.url, 10)), (jsonData) => {
+        formatResponse(res, jsonData)
+    });
 }

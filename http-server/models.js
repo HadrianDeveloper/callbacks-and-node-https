@@ -26,3 +26,33 @@ exports.fetchSomeonesInterests = (username, cb) => {
         err ? console.log(err) : parseFilterString(res, username, cb)
     })
 };
+
+exports.fetchFilteredPets = (query, cb) => {
+    const queryStr = query.split('=');
+    const q = queryStr[0];
+    const value = queryStr[1] === 'true' ? true : false;
+
+    readFile(`${__dirname}/data/pets.json`, 'utf8', (err, res) => {
+        const parsedArr = JSON.parse(res);
+        const results = [];
+
+        for (let person of parsedArr) {
+
+            const holdingObj = {
+                username: person.username,
+                pets: []
+            };
+
+              person.pets.forEach((pet) => {
+                if (pet[q] === value) {
+                    holdingObj.pets.push(pet)
+                }
+            });
+
+            if (holdingObj.pets.length) {
+                results.push(holdingObj)
+            };
+        };
+        cb(JSON.stringify(results));
+    })
+};
