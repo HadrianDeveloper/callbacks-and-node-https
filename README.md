@@ -3,21 +3,21 @@ This project illustrates my capabilities in setting up a fully functioning web s
 
 # Project structure
 
+## data-fetching
+Using Node:http module fetching data from Northcoder's API, and saving them locally as JSON files.
+
+
 ## http-server
-A Node:http web server that serves local JSON data. Separation of concerns the DRY principle achieved through the implementation of the MVC model.
+A Node:http web server that serves the aforementioned JSON file data. Separation of concerns and the DRY principle achieved through the implementation of the MVC fromework.
 
 
 
 
 
-# Introduction
+# Project Overview
+In this project, I fetch data from a server about Northcoders and store it locally. I then leak this data to the world by creating a node:http web server that will respond with the data collected.
 
-On day 1 you'll fetch data from the server about the northcoders and store it locally. On day 2 we'll leak this data to the world and create our own web server that will respond with the data we collected.
-
-## Day 1
-
-### Core Tasks
-
+### Part 1 - Data fetching
 1. Use node's HTTP module to retrieve a list of all the available people at the following end point: `https://nc-leaks.herokuapp.com/api/people`.
 
 2. Once you have the list of people. Find all of the northcoders from the list and save their data to a file.
@@ -26,20 +26,11 @@ On day 1 you'll fetch data from the server about the northcoders and store it lo
 
 4. Do the same for everyone's pets from `https://nc-leaks.herokuapp.com/api/people/:username/pets`.
 
-5. Automation is great. Automate the above steps by putting them in a single npm command.
+5. Automate the above steps by putting them in a single npm command.
 
-Think about how you are going to store the data, and what file format will be best. Make sure you read the relevant documentation (hint: [node http docs](https://nodejs.org/api/http.html).
+6. Use a library such as [`superagent`](https://github.com/visionmedia/superagent) to make your requests easier to handle. Refactor your pets in interests requests to use superagent instead of node's http module.
 
-### Advanced Task
-
-Use a library such as [`superagent`](https://github.com/visionmedia/superagent) to make your requests easier to handle. Refactor your pets in interests requests to use superagent instead of node's http module.
-
-## Day 2
-
-Today we will leak this information to the world! You will introduce yourself to web servers and RESTful APIs by building a server that serves all the data you collected yesterday.
-
-### Core Tasks
-
+## Part 2 - Web server
 1. Using Node's http module create a web server that responds with 'hello' when it receives a GET request on the path /api
 
 2. Add a GET `/api/northcoders` endpoint that serves a JSON object of all the northcoders which shows their name, job details, image and username.
@@ -52,7 +43,7 @@ Today we will leak this information to the world! You will introduce yourself to
 
 6. Add some error handling to your server. What should it respond with if you receive a request for a username that doesn't exist? What status code should you respond with?
 
-### Advanced Tasks
+### Part 3 - Advanced Tasks
 
 1. Add a query parameter to your GET `/api/northcoders` endpoint that searches for northcoders with a specific job. e.g. all the block-leads or all the marketing team. How should the endpoint respond by default (i.e. when not provided the query parameter?) How should it behave when provided an invalid parameter? What status code should your server respond with?
 
