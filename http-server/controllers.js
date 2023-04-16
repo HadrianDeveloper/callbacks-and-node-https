@@ -22,3 +22,7 @@ exports.getSomeonesInterests = (req, res) => {
         formatResponse(res, jsonData)
     })
 };
+
+exports.handle404s = (req, res) => {
+    
+}

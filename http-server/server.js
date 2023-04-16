@@ -1,5 +1,6 @@
 const { getNorthcoders, getIndividual, getSomeonesPets, getSomeonesInterests } = require('./controllers.js');
 const http = require('http');
+const { formatResponse } = require('./utils.js');
 
 const server = http.createServer((req, res) => {
     const {method, url} = req;
@@ -13,8 +14,12 @@ const server = http.createServer((req, res) => {
         } else if (/\/api\/interests\/.+/.test(url)) {
             getSomeonesInterests(req, res)
         } else {
-            console.log('That endpoint does not exist yet')
-        }
+            formatResponse(
+                res, 
+                JSON.stringify('That URL does not exist'), 
+                404
+            );
+        };
     }
 });
 
