@@ -1,4 +1,3 @@
-
 const { fetchFile, saveAsFile, readLocalFile } = require('./utils');
 
 fetchFile(('confidential'), ({instructions}) => {
