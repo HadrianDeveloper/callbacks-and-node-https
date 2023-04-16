@@ -13,6 +13,6 @@ exports.getEndpoint = (url, fromChar) => {
 exports.parseFilterString = (arr, username, cb) => {
     const parsedArr = JSON.parse(arr)
     const target = parsedArr.filter((u) => u.username === username)
-    cb(target)
+    cb(JSON.stringify(target))
 };
 
