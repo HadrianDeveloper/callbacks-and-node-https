@@ -27,17 +27,18 @@ exports.fetchSomeonesInterests = (username, cb) => {
     })
 };
 
-exports.fetchFilteredPets = (query, cb) => {
+exports.fetchFilteredPetsByLivingStatus = (query, cb) => {
     const queryStr = query.split('=');
     const q = queryStr[0];
-    const value = queryStr[1] === 'true' ? true : false;
+    let value = queryStr[1];
+        if (value === 'true') value = true;
+        if (value === 'false') value = false;
 
     readFile(`${__dirname}/data/pets.json`, 'utf8', (err, res) => {
         const parsedArr = JSON.parse(res);
         const results = [];
 
         for (let person of parsedArr) {
-
             const holdingObj = {
                 username: person.username,
                 pets: []
@@ -56,3 +57,4 @@ exports.fetchFilteredPets = (query, cb) => {
         cb(JSON.stringify(results));
     })
 };
+
