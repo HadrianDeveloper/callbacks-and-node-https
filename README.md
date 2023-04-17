@@ -1,21 +1,17 @@
-# Introduction
-This project illustrates my capabilities in setting up a fully functioning web server from scratch using Node's http module, that serves locally stored JSON objects. The JSON files were originally fetched from the Northcoder's API.
+# Project Overview
+In this project, I fetch data about Northcoders staff from a server and store it locally. I then leak this data to the world by creating a node:http web server from scratch.
 
 # Project structure
 
 ## data-fetching
-Using Node:http module fetching data from Northcoder's API, and saving them locally as JSON files.
+Using Node:http module and callback functions to fetch data from the Northcoders API, then saving them locally into JSON files.
 
 
 ## http-server
-A Node:http web server that serves the aforementioned JSON file data. Separation of concerns and the DRY principle achieved through the implementation of the MVC fromework.
+A Node:http web server that serves the aforementioned JSON  data. Separation of concerns and the DRY principle achieved through the implementation of the MVC fromework and Utils helper functions.
 
 
 
-
-
-# Project Overview
-In this project, I fetch data from a server about Northcoders and store it locally. I then leak this data to the world by creating a node:http web server that will respond with the data collected.
 
 ### Part 1 - Data fetching
 1. Use node's HTTP module to retrieve a list of all the available people at the following end point: `https://nc-leaks.herokuapp.com/api/people`.
