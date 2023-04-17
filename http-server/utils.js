@@ -7,12 +7,12 @@ exports.formatResponse = (res, data, code) => {
 };
 
 exports.getEndpoint = (url, fromChar) => {
-    return url.substring(fromChar)
+    return url.substring(fromChar);
 };
 
 exports.parseFilterString = (arr, username, cb) => {
     const parsedArr = JSON.parse(arr)
     const target = parsedArr.filter((u) => u.username === username)
-    cb(JSON.stringify(target))
+    cb(JSON.stringify(target));
 };
 

@@ -1,9 +1,10 @@
 const { getNorthcoders, getIndividual, getSomeonesPets, getSomeonesInterests, getFilteredPets } = require('./controllers.js');
-const http = require('http');
 const { formatResponse } = require('./utils.js');
+const http = require('http');
 
 const server = http.createServer((req, res) => {
     const {method, url} = req;
+
     if (method === 'GET') {
         if (url === '/api/northcoders') {
             getNorthcoders(req, res);
@@ -26,5 +27,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(9000, (err) => {
-    console.log( err ? err : 'Listening...' )
+    console.log( err ? err : 'Listening...' );
 });
