@@ -1,4 +1,4 @@
-const { getNorthcoders, getIndividual, getSomeonesPets, getSomeonesInterests, getFilteredPetsByLivingStatus, getPetsByType } = require('./controllers.js');
+const { getNorthcoders, getIndividual, getSomeonesPets, getSomeonesInterests, getPetsByQuery } = require('./controllers.js');
 const { formatResponse } = require('./utils.js');
 const http = require('http');
 
@@ -10,10 +10,8 @@ const server = http.createServer((req, res) => {
             getNorthcoders(req, res);
         } else if (/\/api\/northcoders\/.+/.test(url)) {
             getIndividual(req, res);
-        } else if (/\/api\/pets\?alive=(true|false)/.test(url)) {
-            getFilteredPetsByLivingStatus(req, res);
-        } else if (/\/api\/pets\?kind=.+/.test(url)) {
-            getPetsByType(req, res);
+        } else if (/\/api\/pets\?(alive=(true|false)kind=.+|)/.test(url)) {
+            getPetsByQuery(req, res);
         } else if (/\/api\/pets\/.+/.test(url)) {
             getSomeonesPets(req, res);
         } else if (/\/api\/interests\/.+/.test(url)) {

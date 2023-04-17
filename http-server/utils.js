@@ -16,3 +16,11 @@ exports.parseFilterString = (arr, username, cb) => {
     cb(JSON.stringify(target));
 };
 
+exports.splitQuery = (query) => {
+    const splitted = query.split('=');
+    const q = splitted[0];
+    let value = splitted[1];
+        if (value === 'true') value = true;
+        if (value === 'false') value = false;
+    return { q, value }
+};
