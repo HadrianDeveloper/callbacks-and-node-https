@@ -1,4 +1,4 @@
-const { fetchNorthcoders, fetchIndividual, fetchSomeonesPets, fetchSomeonesInterests, fetchFilteredPetsByLivingStatus } = require("./models");
+const { fetchNorthcoders, fetchIndividual, fetchSomeonesPets, fetchSomeonesInterests, fetchPetsByQuery } = require("./models");
 const { formatResponse, getEndpoint } = require("./utils");
 
 exports.handle404 = (res) => {
@@ -31,14 +31,8 @@ exports.getSomeonesInterests = (req, res) => {
     })
 };
 
-exports.getFilteredPetsByLivingStatus = (req, res) => {
-    fetchFilteredPetsByLivingStatus((getEndpoint(req.url, 10)), (jsonData) => {
+exports.getPetsByQuery = (req, res) => {
+    fetchPetsByQuery((getEndpoint(req.url, 10)), (jsonData) => {
         formatResponse(res, jsonData)
     });
 };
-
-exports.getPetsByType = (req, res) => {
-    fetchFilteredPetsByLivingStatus((getEndpoint(req.url, 10)), (jsonData) => {
-        formatResponse(res, jsonData);
-    })
-}
