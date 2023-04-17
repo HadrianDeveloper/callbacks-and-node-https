@@ -4,30 +4,28 @@ In this project, I fetch data about Northcoders staff from a server and store it
 # Project structure
 
 ## data-fetching
-Using Node:http module and callback functions to fetch data from the Northcoders API, then saving them locally into JSON files.
+Using Node's http and fs modules to fetch data from the Northcoders API, then saving them locally into JSON files. Asynchronous processing handled by callback functions.
 
 
 ## http-server
 A Node:http web server that serves the aforementioned JSON  data. Separation of concerns and the DRY principle achieved through the implementation of the MVC fromework and Utils helper functions.
 
 
-
+# Project task breakdown
 
 ### Part 1 - Data fetching
-1. Use node's HTTP module to retrieve a list of all the available people at the following end point: `https://nc-leaks.herokuapp.com/api/people`.
+1. Retrieve a list of all the available people at the following end point: `https://nc-leaks.herokuapp.com/api/people`.
 
-2. Once you have the list of people. Find all of the northcoders from the list and save their data to a file.
+2. Find all of the northcoders from this list and save their data to a file.
 
-3. Now you have access to the northcoders' usernames, you can obtain more information for each person. Retrieve everyone's interests and store it in another file from `https://nc-leaks.herokuapp.com/api/people/:username/interests`.
+3. Retrieve everyone's interests and store it in another file from `https://nc-leaks.herokuapp.com/api/people/:username/interests`.
 
-4. Do the same for everyone's pets from `https://nc-leaks.herokuapp.com/api/people/:username/pets`.
+4. Retrieve everyone's pets from `https://nc-leaks.herokuapp.com/api/people/:username/pets`.
 
-5. Automate the above steps by putting them in a single npm command.
-
-6. Use a library such as [`superagent`](https://github.com/visionmedia/superagent) to make your requests easier to handle. Refactor your pets in interests requests to use superagent instead of node's http module.
+5. Automate the above steps
 
 ## Part 2 - Web server
-1. Using Node's http module create a web server that responds with 'hello' when it receives a GET request on the path /api
+1. Create a node:http web server
 
 2. Add a GET `/api/northcoders` endpoint that serves a JSON object of all the northcoders which shows their name, job details, image and username.
 
@@ -41,8 +39,6 @@ A Node:http web server that serves the aforementioned JSON  data. Separation of 
 
 ### Part 3 - Advanced Tasks
 
-1. Add a query parameter to your GET `/api/northcoders` endpoint that searches for northcoders with a specific job. e.g. all the block-leads or all the marketing team. How should the endpoint respond by default (i.e. when not provided the query parameter?) How should it behave when provided an invalid parameter? What status code should your server respond with?
+1. Add a GET `/api/pets` endpoint which accepts a query that serves all northcoders who have a living or dead pet
 
-2. Add a GET `/api/pets` endpoint which accepts a query that serves all northcoders who have a living or dead pet
-
-3. Add a query parameter to your GET `/api/pets` endpoint that serves all northcoders who have a certain kind of pet (e.g. cat, alpaca, llama etc)
+2. Add a query parameter to your GET `/api/pets` endpoint that serves all northcoders who have a certain kind of pet (e.g. cat, alpaca, llama etc)
