@@ -6,7 +6,6 @@ In this project, I fetch data about Northcoders staff from a server and store it
 ## data-fetching
 Using Node's http and fs modules to fetch data from the Northcoders API, then saving them locally into JSON files. Asynchronous processing handled by callback functions.
 
-
 ## http-server
 A Node:http web server that serves the aforementioned JSON  data. Separation of concerns and the DRY principle achieved through the implementation of the MVC fromework and Utils helper functions.
 
